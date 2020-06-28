@@ -1,0 +1,17 @@
+
+/*background of contact form on contact page */
+.contact-form
+{
+  border:15px solid black;  
+    margin-top:10px;
+    padding: 10px;
+    background-color: gainsboro;
+    
+}
+
+/* background of entire website */
+body
+{
+    background: lightblue url("https://lh3.googleusercontent.com/proxy/yJEiqPoUYW41Btdr4psnxlgwUZP0cVlis3GCWGROyTHP79PKVu9JKFv290HrZl44bE0Z8r8gZ3tcJmMDx3JSgs36I4ow3yQ-aE17PVQbCPgCkCDXkp00zxius9tMo8idflPwkup2efXjhq5QWYJpROKfp3uHMrsmJVTBoI0QFPBMkxXH");
+
+}

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+
+    <script src="https://kit.fontawesome.com/9799a4406e.js" crossorigin="anonymous"></script>
+
+    <title>Search</title>
+
+    <script src="https://kit.fontawesome.com/96f910bad6.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+
+
+
+
+    <title>Document</title>
+</head>
+
+<body>
+    <nav class="#3e2723 brown darken-4">
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo right"><i class="fas fa-paw"></i></a>
+            <ul id="nav-mobile" class="left hide-on-med-and-down">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Search form -->
+
+    <div class="container">
+        <div class="row">
+            <div class="center-align">
+                <input placeholder="Type of dog breed" id="Dogbreed" type="text" class="center-align">
+
+                <label for="Dogbreed">Dog Breed</label>
+                <a class="waves-effect waves-light btn" id="search-button">Search</a>
+            </div>
+        </div>
+    </div>
+
+    <div class=“container”>
+        <div class=“row”>
+            <div class=“center-align”>
+                <div id=“search-results”>Search Results go in here</div>
+
+                <a class="waves-effect waves-light btn">Search</a>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="center-align">
+                <div id="search-results">Search Results go in here</div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <footer class="page-footer" id="#3e2723 brown darken-4">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Footer Content</h5>
+                    <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer
+                        content.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-copyright">
+            <div class="container">
+                © 2020 Copyright Text
+            </div>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="dogfinder.js"></script>
+    <script>
+
+
+
+
+        $("#search-button").on("click", function (event) {
+            // var petfinder = require("@petfinder/petfinder-js");
+            // var client = new petfinder.Client({ apiKey: "ZTAQzln548t8qRq80Z160v8wNgpWjl46bHl8G9VjgTdIvH5xow", secret: "fgAYwBjnLLiU6styJzuWEIQA4z8qLIqdxjmIN8an" });
+            $.ajax({
+                url: "https://api.petfinder.com/v2/oauth2/token",
+                method: "POST",
+                data: {
+                    grant_type: "client_credentials",
+                    client_id: "ZTAQzln548t8qRq80Z160v8wNgpWjl46bHl8G9VjgTdIvH5xow",
+                    client_secret: "fgAYwBjnLLiU6styJzuWEIQA4z8qLIqdxjmIN8an"
+                }
+            }).then(function (data) {
+                var queryURL = "https://api.petfinder.com/v2/animals?type=dog&page=2"
+                $.ajax({
+                    url: queryURL,
+                    method: "GET",
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("Authorization", "Bearer " + data.access_token);
+                    },
+                })
+
+
+                    .then(function (response) {
+                        console.log(response);
+                        // Saving the image_original_url property
+                        var imageUrl = response.data.image_original_url;// Do something with `response.data.animals`
+
+                        // Creating and storing an image tag
+                        var dogImage = $("<p>");
+
+                        // Setting the dogImage src attribute to imageUrl
+                        dogImage.attr("src", imageUrl);
+                        dogImage.attr("alt", "dog image");
+
+                        // Prepending the dogImage to the images div
+                        $("#images").prepend(dogImage);
+                    })
+
+            })
+
+
+
+
+
+
+
+
+
+        });
+    </script>
+
+</body>
+
+</html>
